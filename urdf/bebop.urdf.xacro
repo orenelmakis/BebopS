@@ -9,10 +9,12 @@
   <xacro:property name="wind_direction_y" value="$(arg wind_direction_y)" />
   <xacro:property name="wind_direction_z" value="$(arg wind_direction_z)" />
   <xacro:property name="enable_odometry_sensor_with_noise" value="$(arg enable_odometry_sensor_with_noise)" />
+  <xacro:property name="enable_imu" value="$(arg enable_imu)" />
   <xacro:property name="disable_odometry_sensor_with_noise" value="$(arg disable_odometry_sensor_with_noise)" />
   <xacro:property name="enable_ground_truth_sensor" value="$(arg enable_ground_truth_sensor)" />
   <xacro:property name="enable_wind_plugin" value="$(arg enable_wind_plugin)" />
   <xacro:property name="enable_laser1D" value="$(arg enable_laser1D)" />
+  <xacro:property name="name" value="$(arg namespace)" />
 
   <!-- Instantiate bebop "mechanics" -->
   	<xacro:include filename="$(find bebop_simulator)/urdf/bebop_base.urdf.xacro" />
@@ -216,5 +218,12 @@
   	</gazebo>
      </xacro:if>
 
- </robot>
 
+	 <!-- <xacro:include filename="$(find servo_mapping)/urdf/rs2bebop.xacro"/> -->
+	 <xacro:include filename="$(find servo_mapping)/urdf/_d435.urdf.xacro" />
+
+	<xacro:sensor_d435 parent="base_link" >
+	<origin xyz="0.05 0.0 0.05" rpy="0 0 0"/>
+	</xacro:sensor_d435>
+
+ </robot>

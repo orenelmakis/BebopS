@@ -8,6 +8,7 @@
   <arg name="config_file" default="$(find bebop_simulator)/config/defaults.yaml" />
   <arg name="camera_info_url" default="package://bebop_simulator/data/$(arg drone_type)_camera_calib.yaml" />
   
+  <group ns="$(arg name)">
      <!-- Launch the controller  -->
      <node name="position_controller_node_with_bebop" pkg="bebop_simulator" type="position_controller_node_with_bebop" output="screen"> 
        <rosparam command="load" file="$(find bebop_simulator)/resource/controller_bebop.yaml" />
@@ -21,7 +22,6 @@
        <remap from="/smoothedTrajectory" to="/bebop/smoothedTrajectory" />
       </node>
 
-   <group ns="$(arg name)">
 
    <!-- Launch the trajectory generator -->
      <node name="hovering_example" pkg="bebop_simulator" type="hovering_example" output="screen"/> 
@@ -35,7 +35,7 @@
      <param name="robot_description" command="$(find xacro)/xacro $(find bebop_description)/urdf/bebop_base.urdf.xacro"/>
      <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
 
-   </group>
+
 
     <!-- Launch the trajectory plot -->
     <node name="position_plot" pkg="rqt_plot" type="rqt_plot" args="--clear-config /$(arg name)/odometry/pose/pose/position" output="screen" />
@@ -51,6 +51,5 @@
 
     <!-- Launch the smoothed trajectory plot -->
     <node name="smoothed_plot" pkg="rqt_plot" type="rqt_plot" args="--clear-config /$(arg name)/smoothedTrajectory/pose/pose/position" output="screen" />
-
+   </group>
 </launch>
-
